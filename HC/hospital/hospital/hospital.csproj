@@ -51,7 +51,10 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.SqlServerCe, Version=3.5.1.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -70,10 +73,10 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="HCDateBaseDataSet.Designer.cs">
+    <Compile Include="HC_Model.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>HCDateBaseDataSet.xsd</DependentUpon>
+      <DependentUpon>HC_Model.edmx</DependentUpon>
     </Compile>
     <Compile Include="List.cs" />
     <Compile Include="Program.cs" />
@@ -98,17 +101,10 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
-    <None Include="HCDateBaseDataSet.xsc">
-      <DependentUpon>HCDateBaseDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="HCDateBaseDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>HCDateBaseDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="HCDateBaseDataSet.xss">
-      <DependentUpon>HCDateBaseDataSet.xsd</DependentUpon>
-    </None>
+    <EntityDeploy Include="HC_Model.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>HC_Model.Designer.cs</LastGenOutput>
+    </EntityDeploy>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -122,9 +118,6 @@
   <ItemGroup>
     <None Include="bin\Debug\Durka.png" />
     <None Include="bin\Debug\logo-krasniy-krest.png" />
-    <Content Include="HCDateBase.sdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">

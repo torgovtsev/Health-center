@@ -1,0 +1,309 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="hc_dbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.0" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="hc_dbModelStoreContainer">
+          <EntitySet Name="analis" EntityType="hc_dbModel.Store.analis" store:Type="Tables" Schema="hc_db" />
+          <EntitySet Name="doctor" EntityType="hc_dbModel.Store.doctor" store:Type="Tables" Schema="hc_db" />
+          <EntitySet Name="healing" EntityType="hc_dbModel.Store.healing" store:Type="Tables" Schema="hc_db" />
+          <EntitySet Name="patient" EntityType="hc_dbModel.Store.patient" store:Type="Tables" Schema="hc_db" />
+          <EntitySet Name="spec" EntityType="hc_dbModel.Store.spec" store:Type="Tables" Schema="hc_db" />
+          <AssociationSet Name="Relationship1" Association="hc_dbModel.Store.Relationship1">
+            <End Role="doctor" EntitySet="doctor" />
+            <End Role="healing" EntitySet="healing" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship3" Association="hc_dbModel.Store.Relationship3">
+            <End Role="patient" EntitySet="patient" />
+            <End Role="healing" EntitySet="healing" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship4" Association="hc_dbModel.Store.Relationship4">
+            <End Role="patient" EntitySet="patient" />
+            <End Role="analis" EntitySet="analis" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="analis">
+          <Key>
+            <PropertyRef Name="id_analis" />
+          </Key>
+          <Property Name="id_analis" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="id_patient" Type="int" Nullable="false" />
+          <Property Name="type" Type="varchar" MaxLength="100" />
+          <Property Name="conclusion" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6035: The relationship 'Relationship5' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+      -->
+        <EntityType Name="doctor">
+          <Key>
+            <PropertyRef Name="id_doctor" />
+          </Key>
+          <Property Name="id_doctor" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="FIO" Type="varchar" MaxLength="100" />
+          <Property Name="spec_id" Type="int" Nullable="false" />
+          <Property Name="room" Type="int" />
+        </EntityType>
+        <EntityType Name="healing">
+          <Key>
+            <PropertyRef Name="id_healing" />
+          </Key>
+          <Property Name="id_healing" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="id_doctor" Type="int" Nullable="false" />
+          <Property Name="id_patient" Type="int" Nullable="false" />
+          <Property Name="diagnosis" Type="varchar" MaxLength="500" />
+          <Property Name="drugs" Type="varchar" MaxLength="100" />
+          <Property Name="healing_time" Type="datetime" />
+        </EntityType>
+        <EntityType Name="patient">
+          <Key>
+            <PropertyRef Name="id_patient" />
+          </Key>
+          <Property Name="id_patient" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="FIO" Type="varchar" MaxLength="100" />
+          <Property Name="Adress" Type="varchar" MaxLength="100" />
+          <Property Name="Safety_card" Type="int" Nullable="false" />
+          <Property Name="tel" Type="int" />
+        </EntityType>
+        <EntityType Name="spec">
+          <Key>
+            <PropertyRef Name="spec_id" />
+          </Key>
+          <Property Name="spec_id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <Association Name="Relationship1">
+          <End Role="doctor" Type="hc_dbModel.Store.doctor" Multiplicity="1" />
+          <End Role="healing" Type="hc_dbModel.Store.healing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="doctor">
+              <PropertyRef Name="id_doctor" />
+            </Principal>
+            <Dependent Role="healing">
+              <PropertyRef Name="id_doctor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship3">
+          <End Role="patient" Type="hc_dbModel.Store.patient" Multiplicity="1" />
+          <End Role="healing" Type="hc_dbModel.Store.healing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="patient">
+              <PropertyRef Name="id_patient" />
+            </Principal>
+            <Dependent Role="healing">
+              <PropertyRef Name="id_patient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship4">
+          <End Role="patient" Type="hc_dbModel.Store.patient" Multiplicity="1" />
+          <End Role="analis" Type="hc_dbModel.Store.analis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="patient">
+              <PropertyRef Name="id_patient" />
+            </Principal>
+            <Dependent Role="analis">
+              <PropertyRef Name="id_patient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="hc_dbModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="hc_dbConect" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="analis" EntityType="hc_dbModel.analis" />
+          <EntitySet Name="doctor" EntityType="hc_dbModel.doctor" />
+          <EntitySet Name="healing" EntityType="hc_dbModel.healing" />
+          <EntitySet Name="patient" EntityType="hc_dbModel.patient" />
+          <EntitySet Name="spec" EntityType="hc_dbModel.spec" />
+          <AssociationSet Name="Relationship4" Association="hc_dbModel.Relationship4">
+            <End Role="patient" EntitySet="patient" />
+            <End Role="analis" EntitySet="analis" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship1" Association="hc_dbModel.Relationship1">
+            <End Role="doctor" EntitySet="doctor" />
+            <End Role="healing" EntitySet="healing" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship3" Association="hc_dbModel.Relationship3">
+            <End Role="patient" EntitySet="patient" />
+            <End Role="healing" EntitySet="healing" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="analis">
+          <Key>
+            <PropertyRef Name="id_analis" />
+          </Key>
+          <Property Name="id_analis" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_patient" Type="Int32" Nullable="false" />
+          <Property Name="type" Type="String" />
+          <Property Name="conclusion" Type="String" />
+          <NavigationProperty Name="patient" Relationship="hc_dbModel.Relationship4" FromRole="analis" ToRole="patient" />
+        </EntityType>
+        <EntityType Name="doctor">
+          <Key>
+            <PropertyRef Name="id_doctor" />
+          </Key>
+          <Property Name="id_doctor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FIO" Type="String" />
+          <Property Name="spec_id" Type="Int32" Nullable="false" />
+          <Property Name="room" Type="Int32" />
+          <NavigationProperty Name="healing" Relationship="hc_dbModel.Relationship1" FromRole="doctor" ToRole="healing" />
+        </EntityType>
+        <EntityType Name="healing">
+          <Key>
+            <PropertyRef Name="id_healing" />
+          </Key>
+          <Property Name="id_healing" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_doctor" Type="Int32" Nullable="false" />
+          <Property Name="id_patient" Type="Int32" Nullable="false" />
+          <Property Name="diagnosis" Type="String" />
+          <Property Name="drugs" Type="String" />
+          <Property Name="healing_time" Type="DateTime" />
+          <NavigationProperty Name="doctor" Relationship="hc_dbModel.Relationship1" FromRole="healing" ToRole="doctor" />
+          <NavigationProperty Name="patient" Relationship="hc_dbModel.Relationship3" FromRole="healing" ToRole="patient" />
+        </EntityType>
+        <EntityType Name="patient">
+          <Key>
+            <PropertyRef Name="id_patient" />
+          </Key>
+          <Property Name="id_patient" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FIO" Type="String" />
+          <Property Name="Adress" Type="String" />
+          <Property Name="Safety_card" Type="Int32" Nullable="false" />
+          <Property Name="tel" Type="Int32" />
+          <NavigationProperty Name="analis" Relationship="hc_dbModel.Relationship4" FromRole="patient" ToRole="analis" />
+          <NavigationProperty Name="healing" Relationship="hc_dbModel.Relationship3" FromRole="patient" ToRole="healing" />
+        </EntityType>
+        <EntityType Name="spec">
+          <Key>
+            <PropertyRef Name="spec_id" />
+          </Key>
+          <Property Name="spec_id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" />
+        </EntityType>
+        <Association Name="Relationship4">
+          <End Role="patient" Type="hc_dbModel.patient" Multiplicity="1" />
+          <End Role="analis" Type="hc_dbModel.analis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="patient">
+              <PropertyRef Name="id_patient" />
+            </Principal>
+            <Dependent Role="analis">
+              <PropertyRef Name="id_patient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship1">
+          <End Role="doctor" Type="hc_dbModel.doctor" Multiplicity="1" />
+          <End Role="healing" Type="hc_dbModel.healing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="doctor">
+              <PropertyRef Name="id_doctor" />
+            </Principal>
+            <Dependent Role="healing">
+              <PropertyRef Name="id_doctor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship3">
+          <End Role="patient" Type="hc_dbModel.patient" Multiplicity="1" />
+          <End Role="healing" Type="hc_dbModel.healing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="patient">
+              <PropertyRef Name="id_patient" />
+            </Principal>
+            <Dependent Role="healing">
+              <PropertyRef Name="id_patient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="hc_dbModelStoreContainer" CdmEntityContainer="hc_dbConect">
+          <EntitySetMapping Name="analis"><EntityTypeMapping TypeName="hc_dbModel.analis"><MappingFragment StoreEntitySet="analis">
+            <ScalarProperty Name="id_analis" ColumnName="id_analis" />
+            <ScalarProperty Name="id_patient" ColumnName="id_patient" />
+            <ScalarProperty Name="type" ColumnName="type" />
+            <ScalarProperty Name="conclusion" ColumnName="conclusion" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="doctor"><EntityTypeMapping TypeName="hc_dbModel.doctor"><MappingFragment StoreEntitySet="doctor">
+            <ScalarProperty Name="id_doctor" ColumnName="id_doctor" />
+            <ScalarProperty Name="FIO" ColumnName="FIO" />
+            <ScalarProperty Name="spec_id" ColumnName="spec_id" />
+            <ScalarProperty Name="room" ColumnName="room" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="healing"><EntityTypeMapping TypeName="hc_dbModel.healing"><MappingFragment StoreEntitySet="healing">
+            <ScalarProperty Name="id_healing" ColumnName="id_healing" />
+            <ScalarProperty Name="id_doctor" ColumnName="id_doctor" />
+            <ScalarProperty Name="id_patient" ColumnName="id_patient" />
+            <ScalarProperty Name="diagnosis" ColumnName="diagnosis" />
+            <ScalarProperty Name="drugs" ColumnName="drugs" />
+            <ScalarProperty Name="healing_time" ColumnName="healing_time" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="patient"><EntityTypeMapping TypeName="hc_dbModel.patient"><MappingFragment StoreEntitySet="patient">
+            <ScalarProperty Name="id_patient" ColumnName="id_patient" />
+            <ScalarProperty Name="FIO" ColumnName="FIO" />
+            <ScalarProperty Name="Adress" ColumnName="Adress" />
+            <ScalarProperty Name="Safety_card" ColumnName="Safety_card" />
+            <ScalarProperty Name="tel" ColumnName="tel" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="spec"><EntityTypeMapping TypeName="hc_dbModel.spec"><MappingFragment StoreEntitySet="spec">
+            <ScalarProperty Name="spec_id" ColumnName="spec_id" />
+            <ScalarProperty Name="name" ColumnName="name" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="HC_Model">
+        <EntityTypeShape EntityType="hc_dbModel.analis" Width="1.5" PointX="3" PointY="4" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="hc_dbModel.doctor" Width="1.5" PointX="0.75" PointY="7.75" Height="1.9802864583333326" IsExpanded="true" />
+        <EntityTypeShape EntityType="hc_dbModel.healing" Width="1.5" PointX="3" PointY="0.75" Height="2.5571907552083335" IsExpanded="true" />
+        <EntityTypeShape EntityType="hc_dbModel.patient" Width="1.5" PointX="0.75" PointY="3.875" Height="2.3648893229166656" IsExpanded="true" />
+        <EntityTypeShape EntityType="hc_dbModel.spec" Width="1.5" PointX="5.75" PointY="2" Height="1.4033821614583317" IsExpanded="true" />
+        <AssociationConnector Association="hc_dbModel.Relationship4" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="4.9901432291666667" />
+          <ConnectorPoint PointX="2.5416666666666665" PointY="4.9901432291666659" />
+          <ConnectorPoint PointX="2.7083333333333335" PointY="4.9901432291666667" />
+          <ConnectorPoint PointX="3" PointY="4.9901432291666667" />
+        </AssociationConnector>
+        <AssociationConnector Association="hc_dbModel.Relationship1" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="7.75" />
+          <ConnectorPoint PointX="2.625" PointY="7.375" />
+          <ConnectorPoint PointX="2.625" PointY="2.0285953776041667" />
+          <ConnectorPoint PointX="3" PointY="2.0285953776041667" />
+        </AssociationConnector>
+        <AssociationConnector Association="hc_dbModel.Relationship3" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.5" PointY="3.875" />
+          <ConnectorPoint PointX="1.5" PointY="2.6991455664062509" />
+          <ConnectorPoint PointX="2.5416666666666665" PointY="2.6991455664062505" />
+          <ConnectorPoint PointX="2.7083333333333335" PointY="2.6991455664062509" />
+          <ConnectorPoint PointX="3" PointY="2.6991455664062509" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
