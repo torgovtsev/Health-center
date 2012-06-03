@@ -4,13 +4,16 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="hc_dbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.0" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="hc_dbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.0" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="hc_dbModelStoreContainer">
           <EntitySet Name="analis" EntityType="hc_dbModel.Store.analis" store:Type="Tables" Schema="hc_db" />
+          <EntitySet Name="department" EntityType="hc_dbModel.Store.department" store:Type="Tables" Schema="hc_db" />
           <EntitySet Name="doctor" EntityType="hc_dbModel.Store.doctor" store:Type="Tables" Schema="hc_db" />
           <EntitySet Name="healing" EntityType="hc_dbModel.Store.healing" store:Type="Tables" Schema="hc_db" />
           <EntitySet Name="patient" EntityType="hc_dbModel.Store.patient" store:Type="Tables" Schema="hc_db" />
           <EntitySet Name="spec" EntityType="hc_dbModel.Store.spec" store:Type="Tables" Schema="hc_db" />
+          <EntitySet Name="user" EntityType="hc_dbModel.Store.user" store:Type="Tables" Schema="hc_db" />
+          <EntitySet Name="user_type" EntityType="hc_dbModel.Store.user_type" store:Type="Tables" Schema="hc_db" />
           <AssociationSet Name="Relationship1" Association="hc_dbModel.Store.Relationship1">
             <End Role="doctor" EntitySet="doctor" />
             <End Role="healing" EntitySet="healing" />
@@ -23,6 +26,26 @@
             <End Role="patient" EntitySet="patient" />
             <End Role="analis" EntitySet="analis" />
           </AssociationSet>
+          <AssociationSet Name="Relationship5" Association="hc_dbModel.Store.Relationship5">
+            <End Role="spec" EntitySet="spec" />
+            <End Role="doctor" EntitySet="doctor" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship6" Association="hc_dbModel.Store.Relationship6">
+            <End Role="user_type" EntitySet="user_type" />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship7" Association="hc_dbModel.Store.Relationship7">
+            <End Role="user" EntitySet="user" />
+            <End Role="doctor" EntitySet="doctor" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship8" Association="hc_dbModel.Store.Relationship8">
+            <End Role="user" EntitySet="user" />
+            <End Role="patient" EntitySet="patient" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship9" Association="hc_dbModel.Store.Relationship9">
+            <End Role="department" EntitySet="department" />
+            <End Role="spec" EntitySet="spec" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="analis">
           <Key>
@@ -33,16 +56,21 @@
           <Property Name="type" Type="varchar" MaxLength="100" />
           <Property Name="conclusion" Type="varchar" MaxLength="500" />
         </EntityType>
-        <!--Errors Found During Generation:
-      warning 6035: The relationship 'Relationship5' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
-      -->
+        <EntityType Name="department">
+          <Key>
+            <PropertyRef Name="id_department" />
+          </Key>
+          <Property Name="id_department" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
         <EntityType Name="doctor">
           <Key>
             <PropertyRef Name="id_doctor" />
           </Key>
           <Property Name="id_doctor" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="id_user" Type="int" Nullable="false" />
+          <Property Name="id_spec" Type="int" Nullable="false" />
           <Property Name="FIO" Type="varchar" MaxLength="100" />
-          <Property Name="spec_id" Type="int" Nullable="false" />
           <Property Name="room" Type="int" />
         </EntityType>
         <EntityType Name="healing">
@@ -52,6 +80,7 @@
           <Property Name="id_healing" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="id_doctor" Type="int" Nullable="false" />
           <Property Name="id_patient" Type="int" Nullable="false" />
+          <Property Name="comments" Type="varchar" />
           <Property Name="diagnosis" Type="varchar" MaxLength="500" />
           <Property Name="drugs" Type="varchar" MaxLength="100" />
           <Property Name="healing_time" Type="datetime" />
@@ -61,6 +90,7 @@
             <PropertyRef Name="id_patient" />
           </Key>
           <Property Name="id_patient" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="id_user" Type="int" Nullable="false" />
           <Property Name="FIO" Type="varchar" MaxLength="100" />
           <Property Name="Adress" Type="varchar" MaxLength="100" />
           <Property Name="Safety_card" Type="int" Nullable="false" />
@@ -68,9 +98,26 @@
         </EntityType>
         <EntityType Name="spec">
           <Key>
-            <PropertyRef Name="spec_id" />
+            <PropertyRef Name="id_spec" />
           </Key>
-          <Property Name="spec_id" Type="int" Nullable="false" />
+          <Property Name="id_spec" Type="int" Nullable="false" />
+          <Property Name="id_department" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="id_user" />
+          </Key>
+          <Property Name="id_user" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="id_user_type" Type="int" Nullable="false" />
+          <Property Name="login" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="password" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="user_type">
+          <Key>
+            <PropertyRef Name="id_user_type" />
+          </Key>
+          <Property Name="id_user_type" Type="int" Nullable="false" />
           <Property Name="name" Type="varchar" Nullable="false" MaxLength="50" />
         </EntityType>
         <Association Name="Relationship1">
@@ -109,17 +156,78 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+        <Association Name="Relationship5">
+          <End Role="spec" Type="hc_dbModel.Store.spec" Multiplicity="1" />
+          <End Role="doctor" Type="hc_dbModel.Store.doctor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="spec">
+              <PropertyRef Name="id_spec" />
+            </Principal>
+            <Dependent Role="doctor">
+              <PropertyRef Name="id_spec" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship6">
+          <End Role="user_type" Type="hc_dbModel.Store.user_type" Multiplicity="1" />
+          <End Role="user" Type="hc_dbModel.Store.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_type">
+              <PropertyRef Name="id_user_type" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="id_user_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship7">
+          <End Role="user" Type="hc_dbModel.Store.user" Multiplicity="1" />
+          <End Role="doctor" Type="hc_dbModel.Store.doctor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="doctor">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship8">
+          <End Role="user" Type="hc_dbModel.Store.user" Multiplicity="1" />
+          <End Role="patient" Type="hc_dbModel.Store.patient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="patient">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship9">
+          <End Role="department" Type="hc_dbModel.Store.department" Multiplicity="1" />
+          <End Role="spec" Type="hc_dbModel.Store.spec" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="department">
+              <PropertyRef Name="id_department" />
+            </Principal>
+            <Dependent Role="spec">
+              <PropertyRef Name="id_department" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="hc_dbModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
-        <EntityContainer Name="hc_dbConect" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="hc_dbEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="analis" EntityType="hc_dbModel.analis" />
           <EntitySet Name="doctor" EntityType="hc_dbModel.doctor" />
           <EntitySet Name="healing" EntityType="hc_dbModel.healing" />
           <EntitySet Name="patient" EntityType="hc_dbModel.patient" />
           <EntitySet Name="spec" EntityType="hc_dbModel.spec" />
+          <EntitySet Name="user" EntityType="hc_dbModel.user" />
+          <EntitySet Name="user_type" EntityType="hc_dbModel.user_type" />
           <AssociationSet Name="Relationship4" Association="hc_dbModel.Relationship4">
             <End Role="patient" EntitySet="patient" />
             <End Role="analis" EntitySet="analis" />
@@ -128,9 +236,30 @@
             <End Role="doctor" EntitySet="doctor" />
             <End Role="healing" EntitySet="healing" />
           </AssociationSet>
+          <AssociationSet Name="Relationship5" Association="hc_dbModel.Relationship5">
+            <End Role="spec" EntitySet="spec" />
+            <End Role="doctor" EntitySet="doctor" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship7" Association="hc_dbModel.Relationship7">
+            <End Role="user" EntitySet="user" />
+            <End Role="doctor" EntitySet="doctor" />
+          </AssociationSet>
           <AssociationSet Name="Relationship3" Association="hc_dbModel.Relationship3">
             <End Role="patient" EntitySet="patient" />
             <End Role="healing" EntitySet="healing" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship8" Association="hc_dbModel.Relationship8">
+            <End Role="user" EntitySet="user" />
+            <End Role="patient" EntitySet="patient" />
+          </AssociationSet>
+          <AssociationSet Name="Relationship6" Association="hc_dbModel.Relationship6">
+            <End Role="user_type" EntitySet="user_type" />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+          <EntitySet Name="department" EntityType="hc_dbModel.department" />
+          <AssociationSet Name="Relationship9" Association="hc_dbModel.Relationship9">
+            <End Role="department" EntitySet="department" />
+            <End Role="spec" EntitySet="spec" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="analis">
@@ -148,10 +277,13 @@
             <PropertyRef Name="id_doctor" />
           </Key>
           <Property Name="id_doctor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_user" Type="Int32" Nullable="false" />
+          <Property Name="id_spec" Type="Int32" Nullable="false" />
           <Property Name="FIO" Type="String" />
-          <Property Name="spec_id" Type="Int32" Nullable="false" />
           <Property Name="room" Type="Int32" />
           <NavigationProperty Name="healing" Relationship="hc_dbModel.Relationship1" FromRole="doctor" ToRole="healing" />
+          <NavigationProperty Name="spec" Relationship="hc_dbModel.Relationship5" FromRole="doctor" ToRole="spec" />
+          <NavigationProperty Name="user" Relationship="hc_dbModel.Relationship7" FromRole="doctor" ToRole="user" />
         </EntityType>
         <EntityType Name="healing">
           <Key>
@@ -165,25 +297,51 @@
           <Property Name="healing_time" Type="DateTime" />
           <NavigationProperty Name="doctor" Relationship="hc_dbModel.Relationship1" FromRole="healing" ToRole="doctor" />
           <NavigationProperty Name="patient" Relationship="hc_dbModel.Relationship3" FromRole="healing" ToRole="patient" />
+          <Property Type="String" Name="comments" />
         </EntityType>
         <EntityType Name="patient">
           <Key>
             <PropertyRef Name="id_patient" />
           </Key>
           <Property Name="id_patient" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_user" Type="Int32" Nullable="false" />
           <Property Name="FIO" Type="String" />
           <Property Name="Adress" Type="String" />
           <Property Name="Safety_card" Type="Int32" Nullable="false" />
           <Property Name="tel" Type="Int32" />
           <NavigationProperty Name="analis" Relationship="hc_dbModel.Relationship4" FromRole="patient" ToRole="analis" />
           <NavigationProperty Name="healing" Relationship="hc_dbModel.Relationship3" FromRole="patient" ToRole="healing" />
+          <NavigationProperty Name="user" Relationship="hc_dbModel.Relationship8" FromRole="patient" ToRole="user" />
         </EntityType>
         <EntityType Name="spec">
           <Key>
-            <PropertyRef Name="spec_id" />
+            <PropertyRef Name="id_spec" />
           </Key>
-          <Property Name="spec_id" Type="Int32" Nullable="false" />
+          <Property Name="id_spec" Type="Int32" Nullable="false" />
           <Property Name="name" Type="String" Nullable="false" />
+          <NavigationProperty Name="doctor" Relationship="hc_dbModel.Relationship5" FromRole="spec" ToRole="doctor" />
+          <Property Type="Int32" Name="id_department" Nullable="false" />
+          <NavigationProperty Name="department" Relationship="hc_dbModel.Relationship9" FromRole="spec" ToRole="department" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="id_user" />
+          </Key>
+          <Property Name="id_user" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_user_type" Type="Int32" Nullable="false" />
+          <Property Name="login" Type="String" Nullable="false" />
+          <Property Name="password" Type="String" Nullable="false" />
+          <NavigationProperty Name="doctor" Relationship="hc_dbModel.Relationship7" FromRole="user" ToRole="doctor" />
+          <NavigationProperty Name="patient" Relationship="hc_dbModel.Relationship8" FromRole="user" ToRole="patient" />
+          <NavigationProperty Name="user_type" Relationship="hc_dbModel.Relationship6" FromRole="user" ToRole="user_type" />
+        </EntityType>
+        <EntityType Name="user_type">
+          <Key>
+            <PropertyRef Name="id_user_type" />
+          </Key>
+          <Property Name="id_user_type" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" />
+          <NavigationProperty Name="user" Relationship="hc_dbModel.Relationship6" FromRole="user_type" ToRole="user" />
         </EntityType>
         <Association Name="Relationship4">
           <End Role="patient" Type="hc_dbModel.patient" Multiplicity="1" />
@@ -209,6 +367,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="Relationship5">
+          <End Role="spec" Type="hc_dbModel.spec" Multiplicity="1" />
+          <End Role="doctor" Type="hc_dbModel.doctor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="spec">
+              <PropertyRef Name="id_spec" />
+            </Principal>
+            <Dependent Role="doctor">
+              <PropertyRef Name="id_spec" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship7">
+          <End Role="user" Type="hc_dbModel.user" Multiplicity="1" />
+          <End Role="doctor" Type="hc_dbModel.doctor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="doctor">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="Relationship3">
           <End Role="patient" Type="hc_dbModel.patient" Multiplicity="1" />
           <End Role="healing" Type="hc_dbModel.healing" Multiplicity="*" />
@@ -221,12 +403,56 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="Relationship8">
+          <End Role="user" Type="hc_dbModel.user" Multiplicity="1" />
+          <End Role="patient" Type="hc_dbModel.patient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="patient">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Relationship6">
+          <End Role="user_type" Type="hc_dbModel.user_type" Multiplicity="1" />
+          <End Role="user" Type="hc_dbModel.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_type">
+              <PropertyRef Name="id_user_type" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="id_user_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="department">
+          <Key>
+            <PropertyRef Name="id_department" />
+          </Key>
+          <Property Type="Int32" Name="id_department" Nullable="false" />
+          <Property Type="String" Name="name" Nullable="false" />
+          <NavigationProperty Name="spec" Relationship="hc_dbModel.Relationship9" FromRole="department" ToRole="spec" />
+        </EntityType>
+        <Association Name="Relationship9">
+          <End Type="hc_dbModel.department" Role="department" Multiplicity="1" />
+          <End Type="hc_dbModel.spec" Role="spec" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="department">
+              <PropertyRef Name="id_department" />
+            </Principal>
+            <Dependent Role="spec">
+              <PropertyRef Name="id_department" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="hc_dbModelStoreContainer" CdmEntityContainer="hc_dbConect">
+        <EntityContainerMapping StorageEntityContainer="hc_dbModelStoreContainer" CdmEntityContainer="hc_dbEntities1">
           <EntitySetMapping Name="analis"><EntityTypeMapping TypeName="hc_dbModel.analis"><MappingFragment StoreEntitySet="analis">
             <ScalarProperty Name="id_analis" ColumnName="id_analis" />
             <ScalarProperty Name="id_patient" ColumnName="id_patient" />
@@ -235,12 +461,14 @@
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="doctor"><EntityTypeMapping TypeName="hc_dbModel.doctor"><MappingFragment StoreEntitySet="doctor">
             <ScalarProperty Name="id_doctor" ColumnName="id_doctor" />
+            <ScalarProperty Name="id_user" ColumnName="id_user" />
+            <ScalarProperty Name="id_spec" ColumnName="id_spec" />
             <ScalarProperty Name="FIO" ColumnName="FIO" />
-            <ScalarProperty Name="spec_id" ColumnName="spec_id" />
             <ScalarProperty Name="room" ColumnName="room" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="healing"><EntityTypeMapping TypeName="hc_dbModel.healing"><MappingFragment StoreEntitySet="healing">
-            <ScalarProperty Name="id_healing" ColumnName="id_healing" />
+            <ScalarProperty Name="comments" ColumnName="comments" />
+                <ScalarProperty Name="id_healing" ColumnName="id_healing" />
             <ScalarProperty Name="id_doctor" ColumnName="id_doctor" />
             <ScalarProperty Name="id_patient" ColumnName="id_patient" />
             <ScalarProperty Name="diagnosis" ColumnName="diagnosis" />
@@ -249,15 +477,35 @@
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="patient"><EntityTypeMapping TypeName="hc_dbModel.patient"><MappingFragment StoreEntitySet="patient">
             <ScalarProperty Name="id_patient" ColumnName="id_patient" />
+            <ScalarProperty Name="id_user" ColumnName="id_user" />
             <ScalarProperty Name="FIO" ColumnName="FIO" />
             <ScalarProperty Name="Adress" ColumnName="Adress" />
             <ScalarProperty Name="Safety_card" ColumnName="Safety_card" />
             <ScalarProperty Name="tel" ColumnName="tel" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="spec"><EntityTypeMapping TypeName="hc_dbModel.spec"><MappingFragment StoreEntitySet="spec">
-            <ScalarProperty Name="spec_id" ColumnName="spec_id" />
+            <ScalarProperty Name="id_department" ColumnName="id_department" />
+                <ScalarProperty Name="id_spec" ColumnName="id_spec" />
             <ScalarProperty Name="name" ColumnName="name" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="user"><EntityTypeMapping TypeName="hc_dbModel.user"><MappingFragment StoreEntitySet="user">
+            <ScalarProperty Name="id_user" ColumnName="id_user" />
+            <ScalarProperty Name="id_user_type" ColumnName="id_user_type" />
+            <ScalarProperty Name="login" ColumnName="login" />
+            <ScalarProperty Name="password" ColumnName="password" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="user_type"><EntityTypeMapping TypeName="hc_dbModel.user_type"><MappingFragment StoreEntitySet="user_type">
+            <ScalarProperty Name="id_user_type" ColumnName="id_user_type" />
+            <ScalarProperty Name="name" ColumnName="name" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="department">
+            <EntityTypeMapping TypeName="hc_dbModel.department">
+              <MappingFragment StoreEntitySet="department">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id_department" ColumnName="id_department" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -279,29 +527,48 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="HC_Model">
-        <EntityTypeShape EntityType="hc_dbModel.analis" Width="1.5" PointX="3" PointY="4" Height="1.9802864583333335" IsExpanded="true" />
-        <EntityTypeShape EntityType="hc_dbModel.doctor" Width="1.5" PointX="0.75" PointY="7.75" Height="1.9802864583333326" IsExpanded="true" />
-        <EntityTypeShape EntityType="hc_dbModel.healing" Width="1.5" PointX="3" PointY="0.75" Height="2.5571907552083335" IsExpanded="true" />
-        <EntityTypeShape EntityType="hc_dbModel.patient" Width="1.5" PointX="0.75" PointY="3.875" Height="2.3648893229166656" IsExpanded="true" />
-        <EntityTypeShape EntityType="hc_dbModel.spec" Width="1.5" PointX="5.75" PointY="2" Height="1.4033821614583317" IsExpanded="true" />
+        <EntityTypeShape EntityType="hc_dbModel.analis" Width="1.5" PointX="7.5" PointY="6.875" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="hc_dbModel.doctor" Width="1.5" PointX="5.25" PointY="2.25" Height="2.5571907552083331" IsExpanded="true" />
+        <EntityTypeShape EntityType="hc_dbModel.healing" Width="1.5" PointX="7.5" PointY="3.5" Height="2.5571907552083335" IsExpanded="true" />
+        <EntityTypeShape EntityType="hc_dbModel.patient" Width="1.5" PointX="5.25" PointY="6.5" Height="2.7494921874999987" IsExpanded="true" />
+        <EntityTypeShape EntityType="hc_dbModel.spec" Width="1.5" PointX="3" PointY="0.75" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="hc_dbModel.user" Width="1.5" PointX="3" PointY="3.375" Height="2.3648893229166661" IsExpanded="true" />
+        <EntityTypeShape EntityType="hc_dbModel.user_type" Width="1.5" PointX="0.75" PointY="3.75" Height="1.5956835937499996" IsExpanded="true" />
         <AssociationConnector Association="hc_dbModel.Relationship4" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="4.9901432291666667" />
-          <ConnectorPoint PointX="2.5416666666666665" PointY="4.9901432291666659" />
-          <ConnectorPoint PointX="2.7083333333333335" PointY="4.9901432291666667" />
-          <ConnectorPoint PointX="3" PointY="4.9901432291666667" />
+          <ConnectorPoint PointX="6.75" PointY="7.8651432291666667" />
+          <ConnectorPoint PointX="7.5" PointY="7.8651432291666667" />
         </AssociationConnector>
         <AssociationConnector Association="hc_dbModel.Relationship1" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="7.75" />
-          <ConnectorPoint PointX="2.625" PointY="7.375" />
-          <ConnectorPoint PointX="2.625" PointY="2.0285953776041667" />
-          <ConnectorPoint PointX="3" PointY="2.0285953776041667" />
+          <ConnectorPoint PointX="6.75" PointY="4.1535953776041667" />
+          <ConnectorPoint PointX="7.5" PointY="4.1535953776041667" />
+        </AssociationConnector>
+        <AssociationConnector Association="hc_dbModel.Relationship5" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="2.4901432291666667" />
+          <ConnectorPoint PointX="5.25" PointY="2.4901432291666667" />
+        </AssociationConnector>
+        <AssociationConnector Association="hc_dbModel.Relationship7" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="4.0910953776041667" />
+          <ConnectorPoint PointX="5.25" PointY="4.0910953776041667" />
         </AssociationConnector>
         <AssociationConnector Association="hc_dbModel.Relationship3" ManuallyRouted="false">
-          <ConnectorPoint PointX="1.5" PointY="3.875" />
-          <ConnectorPoint PointX="1.5" PointY="2.6991455664062509" />
-          <ConnectorPoint PointX="2.5416666666666665" PointY="2.6991455664062505" />
-          <ConnectorPoint PointX="2.7083333333333335" PointY="2.6991455664062509" />
-          <ConnectorPoint PointX="3" PointY="2.6991455664062509" />
+          <ConnectorPoint PointX="6.75" PointY="6.5" />
+          <ConnectorPoint PointX="7.125" PointY="6.125" />
+          <ConnectorPoint PointX="7.125" PointY="6.6244921875" />
+          <ConnectorPoint PointX="7.5" PointY="6.2494921875" />
+        </AssociationConnector>
+        <AssociationConnector Association="hc_dbModel.Relationship8" ManuallyRouted="false">
+          <ConnectorPoint PointX="3.75" PointY="5.7398893229166656" />
+          <ConnectorPoint PointX="3.75" PointY="7.87474609375" />
+          <ConnectorPoint PointX="5.25" PointY="7.87474609375" />
+        </AssociationConnector>
+        <AssociationConnector Association="hc_dbModel.Relationship6" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="4.547841796875" />
+          <ConnectorPoint PointX="3" PointY="4.547841796875" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="hc_dbModel.department" Width="1.5" PointX="0.75" PointY="1" Height="1.5956835937499996" />
+        <AssociationConnector Association="hc_dbModel.Relationship9" >
+          <ConnectorPoint PointX="2.25" PointY="1.7978417968749998" />
+          <ConnectorPoint PointX="3" PointY="1.7978417968749998" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>
