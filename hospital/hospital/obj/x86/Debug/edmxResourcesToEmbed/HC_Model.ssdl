@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="hc_dbModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.0" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="hc_dbModelStoreContainer">
+    <EntitySet Name="analis" EntityType="hc_dbModel.Store.analis" store:Type="Tables" Schema="hc_db" />
+    <EntitySet Name="department" EntityType="hc_dbModel.Store.department" store:Type="Tables" Schema="hc_db" />
+    <EntitySet Name="doctor" EntityType="hc_dbModel.Store.doctor" store:Type="Tables" Schema="hc_db" />
+    <EntitySet Name="healing" EntityType="hc_dbModel.Store.healing" store:Type="Tables" Schema="hc_db" />
+    <EntitySet Name="patient" EntityType="hc_dbModel.Store.patient" store:Type="Tables" Schema="hc_db" />
+    <EntitySet Name="spec" EntityType="hc_dbModel.Store.spec" store:Type="Tables" Schema="hc_db" />
+    <EntitySet Name="user" EntityType="hc_dbModel.Store.user" store:Type="Tables" Schema="hc_db" />
+    <EntitySet Name="user_type" EntityType="hc_dbModel.Store.user_type" store:Type="Tables" Schema="hc_db" />
+    <AssociationSet Name="Relationship1" Association="hc_dbModel.Store.Relationship1">
+      <End Role="doctor" EntitySet="doctor" />
+      <End Role="healing" EntitySet="healing" />
+    </AssociationSet>
+    <AssociationSet Name="Relationship3" Association="hc_dbModel.Store.Relationship3">
+      <End Role="patient" EntitySet="patient" />
+      <End Role="healing" EntitySet="healing" />
+    </AssociationSet>
+    <AssociationSet Name="Relationship4" Association="hc_dbModel.Store.Relationship4">
+      <End Role="patient" EntitySet="patient" />
+      <End Role="analis" EntitySet="analis" />
+    </AssociationSet>
+    <AssociationSet Name="Relationship5" Association="hc_dbModel.Store.Relationship5">
+      <End Role="spec" EntitySet="spec" />
+      <End Role="doctor" EntitySet="doctor" />
+    </AssociationSet>
+    <AssociationSet Name="Relationship6" Association="hc_dbModel.Store.Relationship6">
+      <End Role="user_type" EntitySet="user_type" />
+      <End Role="user" EntitySet="user" />
+    </AssociationSet>
+    <AssociationSet Name="Relationship7" Association="hc_dbModel.Store.Relationship7">
+      <End Role="user" EntitySet="user" />
+      <End Role="doctor" EntitySet="doctor" />
+    </AssociationSet>
+    <AssociationSet Name="Relationship8" Association="hc_dbModel.Store.Relationship8">
+      <End Role="user" EntitySet="user" />
+      <End Role="patient" EntitySet="patient" />
+    </AssociationSet>
+    <AssociationSet Name="Relationship9" Association="hc_dbModel.Store.Relationship9">
+      <End Role="department" EntitySet="department" />
+      <End Role="spec" EntitySet="spec" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="analis">
+    <Key>
+      <PropertyRef Name="id_analis" />
+    </Key>
+    <Property Name="id_analis" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id_patient" Type="int" Nullable="false" />
+    <Property Name="type" Type="varchar" MaxLength="100" />
+    <Property Name="conclusion" Type="varchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="department">
+    <Key>
+      <PropertyRef Name="id_department" />
+    </Key>
+    <Property Name="id_department" Type="int" Nullable="false" />
+    <Property Name="name" Type="varchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="doctor">
+    <Key>
+      <PropertyRef Name="id_doctor" />
+    </Key>
+    <Property Name="id_doctor" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id_user" Type="int" Nullable="false" />
+    <Property Name="id_spec" Type="int" Nullable="false" />
+    <Property Name="FIO" Type="varchar" MaxLength="100" />
+    <Property Name="room" Type="int" />
+  </EntityType>
+  <EntityType Name="healing">
+    <Key>
+      <PropertyRef Name="id_healing" />
+    </Key>
+    <Property Name="id_healing" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id_doctor" Type="int" Nullable="false" />
+    <Property Name="id_patient" Type="int" Nullable="false" />
+    <Property Name="comments" Type="varchar" />
+    <Property Name="diagnosis" Type="varchar" MaxLength="500" />
+    <Property Name="drugs" Type="varchar" MaxLength="100" />
+    <Property Name="healing_time" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="patient">
+    <Key>
+      <PropertyRef Name="id_patient" />
+    </Key>
+    <Property Name="id_patient" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id_user" Type="int" Nullable="false" />
+    <Property Name="FIO" Type="varchar" MaxLength="100" />
+    <Property Name="Adress" Type="varchar" MaxLength="100" />
+    <Property Name="Safety_card" Type="int" />
+    <Property Name="tel" Type="varchar" MaxLength="25" />
+  </EntityType>
+  <EntityType Name="spec">
+    <Key>
+      <PropertyRef Name="id_spec" />
+    </Key>
+    <Property Name="id_spec" Type="int" Nullable="false" />
+    <Property Name="id_department" Type="int" Nullable="false" />
+    <Property Name="name" Type="varchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="user">
+    <Key>
+      <PropertyRef Name="id_user" />
+    </Key>
+    <Property Name="id_user" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id_user_type" Type="int" Nullable="false" />
+    <Property Name="login" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="password" Type="varchar" Nullable="false" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="user_type">
+    <Key>
+      <PropertyRef Name="id_user_type" />
+    </Key>
+    <Property Name="id_user_type" Type="int" Nullable="false" />
+    <Property Name="name" Type="varchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <Association Name="Relationship1">
+    <End Role="doctor" Type="hc_dbModel.Store.doctor" Multiplicity="1" />
+    <End Role="healing" Type="hc_dbModel.Store.healing" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="doctor">
+        <PropertyRef Name="id_doctor" />
+      </Principal>
+      <Dependent Role="healing">
+        <PropertyRef Name="id_doctor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Relationship3">
+    <End Role="patient" Type="hc_dbModel.Store.patient" Multiplicity="1" />
+    <End Role="healing" Type="hc_dbModel.Store.healing" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="patient">
+        <PropertyRef Name="id_patient" />
+      </Principal>
+      <Dependent Role="healing">
+        <PropertyRef Name="id_patient" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Relationship4">
+    <End Role="patient" Type="hc_dbModel.Store.patient" Multiplicity="1" />
+    <End Role="analis" Type="hc_dbModel.Store.analis" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="patient">
+        <PropertyRef Name="id_patient" />
+      </Principal>
+      <Dependent Role="analis">
+        <PropertyRef Name="id_patient" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Relationship5">
+    <End Role="spec" Type="hc_dbModel.Store.spec" Multiplicity="1" />
+    <End Role="doctor" Type="hc_dbModel.Store.doctor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="spec">
+        <PropertyRef Name="id_spec" />
+      </Principal>
+      <Dependent Role="doctor">
+        <PropertyRef Name="id_spec" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Relationship6">
+    <End Role="user_type" Type="hc_dbModel.Store.user_type" Multiplicity="1" />
+    <End Role="user" Type="hc_dbModel.Store.user" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user_type">
+        <PropertyRef Name="id_user_type" />
+      </Principal>
+      <Dependent Role="user">
+        <PropertyRef Name="id_user_type" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Relationship7">
+    <End Role="user" Type="hc_dbModel.Store.user" Multiplicity="1" />
+    <End Role="doctor" Type="hc_dbModel.Store.doctor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user">
+        <PropertyRef Name="id_user" />
+      </Principal>
+      <Dependent Role="doctor">
+        <PropertyRef Name="id_user" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Relationship8">
+    <End Role="user" Type="hc_dbModel.Store.user" Multiplicity="1" />
+    <End Role="patient" Type="hc_dbModel.Store.patient" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user">
+        <PropertyRef Name="id_user" />
+      </Principal>
+      <Dependent Role="patient">
+        <PropertyRef Name="id_user" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Relationship9">
+    <End Role="department" Type="hc_dbModel.Store.department" Multiplicity="1" />
+    <End Role="spec" Type="hc_dbModel.Store.spec" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="department">
+        <PropertyRef Name="id_department" />
+      </Principal>
+      <Dependent Role="spec">
+        <PropertyRef Name="id_department" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
