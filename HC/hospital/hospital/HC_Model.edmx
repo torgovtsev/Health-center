@@ -83,7 +83,7 @@
           <Property Name="comments" Type="varchar" />
           <Property Name="diagnosis" Type="varchar" MaxLength="500" />
           <Property Name="drugs" Type="varchar" MaxLength="100" />
-          <Property Name="healing_time" Type="datetime" />
+          <Property Name="healing_time" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="patient">
           <Key>
@@ -93,8 +93,8 @@
           <Property Name="id_user" Type="int" Nullable="false" />
           <Property Name="FIO" Type="varchar" MaxLength="100" />
           <Property Name="Adress" Type="varchar" MaxLength="100" />
-          <Property Name="Safety_card" Type="int" Nullable="false" />
-          <Property Name="tel" Type="int" />
+          <Property Name="Safety_card" Type="int" />
+          <Property Name="tel" Type="varchar" MaxLength="25" />
         </EntityType>
         <EntityType Name="spec">
           <Key>
@@ -294,7 +294,7 @@
           <Property Name="id_patient" Type="Int32" Nullable="false" />
           <Property Name="diagnosis" Type="String" />
           <Property Name="drugs" Type="String" />
-          <Property Name="healing_time" Type="DateTime" />
+          <Property Name="healing_time" Type="DateTime" Nullable="false" />
           <NavigationProperty Name="doctor" Relationship="hc_dbModel.Relationship1" FromRole="healing" ToRole="doctor" />
           <NavigationProperty Name="patient" Relationship="hc_dbModel.Relationship3" FromRole="healing" ToRole="patient" />
           <Property Type="String" Name="comments" />
@@ -308,7 +308,7 @@
           <Property Name="FIO" Type="String" />
           <Property Name="Adress" Type="String" />
           <Property Name="Safety_card" Type="Int32" Nullable="false" />
-          <Property Name="tel" Type="Int32" />
+          <Property Name="tel" Type="String" />
           <NavigationProperty Name="analis" Relationship="hc_dbModel.Relationship4" FromRole="patient" ToRole="analis" />
           <NavigationProperty Name="healing" Relationship="hc_dbModel.Relationship3" FromRole="patient" ToRole="healing" />
           <NavigationProperty Name="user" Relationship="hc_dbModel.Relationship8" FromRole="patient" ToRole="user" />
@@ -526,7 +526,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="HC_Model">
+      <Diagram Name="HC_Model" ZoomLevel="85">
         <EntityTypeShape EntityType="hc_dbModel.analis" Width="1.5" PointX="7.5" PointY="6.875" Height="1.9802864583333335" IsExpanded="true" />
         <EntityTypeShape EntityType="hc_dbModel.doctor" Width="1.5" PointX="5.25" PointY="2.25" Height="2.5571907552083331" IsExpanded="true" />
         <EntityTypeShape EntityType="hc_dbModel.healing" Width="1.5" PointX="7.5" PointY="3.5" Height="2.5571907552083335" IsExpanded="true" />

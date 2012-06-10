@@ -72,7 +72,7 @@ CREATE TABLE Healing (
     comments Varchar(1000),
     diagnosis Varchar(500),
     drugs Varchar(100),
-    healing_time Datetime,
+    healing_time Datetime NOT NULL,
     PRIMARY KEY (id_healing)
 )
 ;
@@ -84,8 +84,8 @@ CREATE TABLE Patient (
     id_user Int NOT NULL,
     FIO Varchar(100),
     Adress Varchar(100),
-    Safety_card Int NOT NULL,
-    tel Int,
+    Safety_card Int,
+    tel Varchar(25),
     PRIMARY KEY (id_patient)
 )
 ;
@@ -159,4 +159,64 @@ ALTER TABLE Patient ADD CONSTRAINT Relationship8 FOREIGN KEY (id_user) REFERENCE
 ;
 
 ALTER TABLE spec ADD CONSTRAINT Relationship9 FOREIGN KEY (id_department) REFERENCES department (id_department) ON DELETE NO ACTION ON UPDATE NO ACTION
+;
+
+INSERT INTO department (id_department,name) VALUES (0, 'Hirurgicheskoe')
+;
+
+INSERT INTO department (id_department,name) VALUES (1, 'manual diagnostis')
+;
+
+INSERT INTO spec (id_spec, name, id_department) VALUES (0, 'Hirurg', 0)
+;
+
+INSERT INTO spec (id_spec, name, id_department) VALUES (1, 'Okulist', 1)
+;
+
+INSERT INTO spec (id_spec, name, id_department) VALUES (2, 'Ottolaringolog', 1)
+;
+
+INSERT INTO user_type (id_user_type, name) VALUES (0, 'Registrator')
+;
+
+INSERT INTO user_type (id_user_type, name) VALUES (1, 'Doctor')
+;
+
+INSERT INTO user_type (id_user_type, name) VALUES (2, 'User')
+;
+
+INSERT INTO user (id_user_type, login, password) VALUES (0, 'morfius', 'smittdie')
+;
+
+INSERT INTO user (id_user_type, login, password) VALUES (1, 'house', 'ilikeppl')
+;
+
+INSERT INTO user (id_user_type, login, password) VALUES (1, 'cox', 'ilikeplp2')
+;
+
+INSERT INTO user (id_user_type, login, password) VALUES (1, 'bormental', '80kg')
+;
+
+INSERT INTO user (id_user_type, login, password) VALUES (2, 'babadusya', 'vecherinki2')
+;
+
+INSERT INTO user (id_user_type, login, password) VALUES (2, 'guf', '7flor')
+;
+
+INSERT INTO doctor (id_user, id_spec, FIO, room) VALUES (2, 0, 'Gregory House', 13)
+;
+
+INSERT INTO doctor (id_user, id_spec, FIO, room) VALUES (3, 1, 'Perry Cox', 14)
+;
+
+INSERT INTO doctor (id_user, id_spec, FIO, room) VALUES (4, 2, 'Doctor Bobmental', 15)
+;
+
+INSERT INTO patient (id_user, FIO, Adress, Safety_card, tel) VALUES (5, 'Evdokia Aleksandrovna Geroin', 'Novoibiza d.5 kv.1408', 132353, 'nokia lumia 900')
+;
+
+INSERT INTO patient (id_user, FIO, Adress, Safety_card, tel) VALUES (6, 'Aleksandr GUF Dolmatov', 'Heaven/Hell', 132452, '2978473')
+;
+
+INSERT INTO healing (id_doctor, id_patient, healing_time) VALUES (1, 1, '2012-06-04 9:00:00')
 ;

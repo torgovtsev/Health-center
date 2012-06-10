@@ -31,5 +31,7 @@ C:\Users\NitrOxygeN\git\Health-center\HC\hospital\hospital\obj\x86\Debug\Resolve
 C:\Users\NitrOxygeN\git\Health-center\HC\hospital\hospital\obj\x86\Debug\hospital.Properties.Resources.resources
 C:\Users\NitrOxygeN\git\Health-center\HC\hospital\hospital\obj\x86\Debug\GenerateResource.read.1.tlog
 C:\Users\NitrOxygeN\git\Health-center\HC\hospital\hospital\obj\x86\Debug\GenerateResource.write.1.tlog
-C:\Users\NitrOxygeN\git\Health-center\HC\hospital\hospital\obj\x86\Debug\hospital.FormMain.resources
 C:\Users\NitrOxygeN\git\Health-center\HC\hospital\hospital\obj\x86\Debug\hospital.FormAuth.resources
+C:\Users\NitrOxygeN\git\Health-center\HC\hospital\hospital\obj\x86\Debug\hospital.FormPatient.resources
+C:\Users\NitrOxygeN\git\Health-center\HC\hospital\hospital\obj\x86\Debug\hospital.FormDoctor.resources
+C:\Users\NitrOxygeN\git\Health-center\HC\hospital\hospital\obj\x86\Debug\hospital.FormEdit.resources

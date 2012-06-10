@@ -78,7 +78,7 @@
     <Property Name="comments" Type="varchar" />
     <Property Name="diagnosis" Type="varchar" MaxLength="500" />
     <Property Name="drugs" Type="varchar" MaxLength="100" />
-    <Property Name="healing_time" Type="datetime" />
+    <Property Name="healing_time" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityType Name="patient">
     <Key>
@@ -88,8 +88,8 @@
     <Property Name="id_user" Type="int" Nullable="false" />
     <Property Name="FIO" Type="varchar" MaxLength="100" />
     <Property Name="Adress" Type="varchar" MaxLength="100" />
-    <Property Name="Safety_card" Type="int" Nullable="false" />
-    <Property Name="tel" Type="int" />
+    <Property Name="Safety_card" Type="int" />
+    <Property Name="tel" Type="varchar" MaxLength="25" />
   </EntityType>
   <EntityType Name="spec">
     <Key>

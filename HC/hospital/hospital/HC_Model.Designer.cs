@@ -828,12 +828,14 @@ namespace hospital
         /// <param name="id_healing">Исходное значение свойства id_healing.</param>
         /// <param name="id_doctor">Исходное значение свойства id_doctor.</param>
         /// <param name="id_patient">Исходное значение свойства id_patient.</param>
-        public static healing Createhealing(global::System.Int32 id_healing, global::System.Int32 id_doctor, global::System.Int32 id_patient)
+        /// <param name="healing_time">Исходное значение свойства healing_time.</param>
+        public static healing Createhealing(global::System.Int32 id_healing, global::System.Int32 id_doctor, global::System.Int32 id_patient, global::System.DateTime healing_time)
         {
             healing healing = new healing();
             healing.id_healing = id_healing;
             healing.id_doctor = id_doctor;
             healing.id_patient = id_patient;
+            healing.healing_time = healing_time;
             return healing;
         }
 
@@ -966,9 +968,9 @@ namespace hospital
         /// <summary>
         /// Нет доступной документации по метаданным.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> healing_time
+        public global::System.DateTime healing_time
         {
             get
             {
@@ -983,8 +985,8 @@ namespace hospital
                 Onhealing_timeChanged();
             }
         }
-        private Nullable<global::System.DateTime> _healing_time;
-        partial void Onhealing_timeChanging(Nullable<global::System.DateTime> value);
+        private global::System.DateTime _healing_time;
+        partial void Onhealing_timeChanging(global::System.DateTime value);
         partial void Onhealing_timeChanged();
     
         /// <summary>
@@ -1250,7 +1252,7 @@ namespace hospital
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> tel
+        public global::System.String tel
         {
             get
             {
@@ -1260,13 +1262,13 @@ namespace hospital
             {
                 OntelChanging(value);
                 ReportPropertyChanging("tel");
-                _tel = StructuralObject.SetValidValue(value);
+                _tel = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("tel");
                 OntelChanged();
             }
         }
-        private Nullable<global::System.Int32> _tel;
-        partial void OntelChanging(Nullable<global::System.Int32> value);
+        private global::System.String _tel;
+        partial void OntelChanging(global::System.String value);
         partial void OntelChanged();
 
         #endregion

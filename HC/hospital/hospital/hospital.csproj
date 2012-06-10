@@ -74,11 +74,23 @@
     <Compile Include="FormAuth.Designer.cs">
       <DependentUpon>FormAuth.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormMain.cs">
+    <Compile Include="FormDoctor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormMain.Designer.cs">
-      <DependentUpon>FormMain.cs</DependentUpon>
+    <Compile Include="FormDoctor.Designer.cs">
+      <DependentUpon>FormDoctor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormEdit.Designer.cs">
+      <DependentUpon>FormEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormPatient.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormPatient.Designer.cs">
+      <DependentUpon>FormPatient.cs</DependentUpon>
     </Compile>
     <Compile Include="HC_Model.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -102,8 +114,14 @@
     <EmbeddedResource Include="FormAuth.resx">
       <DependentUpon>FormAuth.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormMain.resx">
-      <DependentUpon>FormMain.cs</DependentUpon>
+    <EmbeddedResource Include="FormDoctor.resx">
+      <DependentUpon>FormDoctor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormEdit.resx">
+      <DependentUpon>FormEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormPatient.resx">
+      <DependentUpon>FormPatient.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -125,6 +143,7 @@
       <LastGenOutput>Model1.cs</LastGenOutput>
     </None>
     <None Include="Properties\DataSources\department.datasource" />
+    <None Include="Properties\DataSources\healing.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

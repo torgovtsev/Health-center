@@ -74,7 +74,7 @@
     <Property Name="id_patient" Type="Int32" Nullable="false" />
     <Property Name="diagnosis" Type="String" />
     <Property Name="drugs" Type="String" />
-    <Property Name="healing_time" Type="DateTime" />
+    <Property Name="healing_time" Type="DateTime" Nullable="false" />
     <NavigationProperty Name="doctor" Relationship="hc_dbModel.Relationship1" FromRole="healing" ToRole="doctor" />
     <NavigationProperty Name="patient" Relationship="hc_dbModel.Relationship3" FromRole="healing" ToRole="patient" />
     <Property Type="String" Name="comments" />
@@ -88,7 +88,7 @@
     <Property Name="FIO" Type="String" />
     <Property Name="Adress" Type="String" />
     <Property Name="Safety_card" Type="Int32" Nullable="false" />
-    <Property Name="tel" Type="Int32" />
+    <Property Name="tel" Type="String" />
     <NavigationProperty Name="analis" Relationship="hc_dbModel.Relationship4" FromRole="patient" ToRole="analis" />
     <NavigationProperty Name="healing" Relationship="hc_dbModel.Relationship3" FromRole="patient" ToRole="healing" />
     <NavigationProperty Name="user" Relationship="hc_dbModel.Relationship8" FromRole="patient" ToRole="user" />
